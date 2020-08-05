@@ -1,0 +1,39 @@
+#nacos配置
+server:
+  port: 11001
+  
+spring:
+  application:
+    name: SnowFlake #不要使用下划线
+  datasource: 
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mcshopshoes?serverTimezone=GMT%2B8&characterEncoding=utf8&useSSL=false
+    username: root
+    password: CHENJIALE@12
+  cloud: 
+    nacos:
+      discovery:
+        server-addr: localhost:8848 
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+        group: DEFAULT_GROUP
+    sentinel: 
+      transport:
+        #配置sentinel dashboard地址
+        dashboard: localhost:8080
+        #默认8719端口，假如被占用会自动从8719开始依次+1扫描，直到找到未被占用的端口
+        port: 8719
+
+# ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+
+feign:
+  sentinel:
+    enabled: true
+
+
+snowflake:
+  datacenterId: 1
+  machineId: 2
+
+

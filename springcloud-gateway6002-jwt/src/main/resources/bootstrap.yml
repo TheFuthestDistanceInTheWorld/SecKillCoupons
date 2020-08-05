@@ -1,0 +1,56 @@
+server:
+  port: 6002
+spring:
+  application:
+    name: cloud-gateway
+  cloud: 
+    nacos:
+      discovery:
+        server-addr: localhost:8848 
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+        group: DEFAULT_GROUP
+    sentinel: 
+      transport:
+        #配置sentinel dashboard地址
+        dashboard: localhost:8080
+        #默认8719端口，假如被占用会自动从8719开始依次+1扫描，直到找到未被占用的端口
+        port: 8719
+    gateway: 
+      discovery: 
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能，利用微服务进行路由
+      routes:
+      - id: baidu
+        uri: https://www.baidu.com
+        predicates:
+        - Path=/baidu/**
+        filters:
+        - StripPrefix=1
+
+      - id: eureka-manage
+        uri: lb://eureka-manage
+        predicates:
+        - Path=/eureka-manage/**
+        filters:
+        - StripPrefix=1
+
+      - id: sina
+        uri: https://www.sina.com.cn/
+        predicates:
+        - Path=/sina/**
+        filters:
+        - StripPrefix=1
+org:
+  my:
+    jwt:
+      #跳过认证的路由
+      skip-auth-urls:
+      - /baidu
+      ############################################
+      #   有效时长
+      #     单位：d:天、h:小时、m:分钟、s:秒
+      ###########################################
+      effective-time: 1d
+          

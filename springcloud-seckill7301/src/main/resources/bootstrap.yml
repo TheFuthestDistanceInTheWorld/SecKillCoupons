@@ -1,0 +1,34 @@
+#nacos配置
+server:
+  port: 7301
+  
+spring:
+  application:
+    name: SecKill #不要使用下划线
+  cloud: 
+    nacos:
+      discovery:
+        server-addr: localhost:8848 
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+        group: DEFAULT_GROUP
+    sentinel: 
+      transport:
+        #配置sentinel dashboard地址
+        dashboard: localhost:8080
+        #默认8719端口，假如被占用会自动从8719开始依次+1扫描，直到找到未被占用的端口
+        port: 8719
+
+# ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+
+
+feign:
+  sentinel:
+    enabled: true
+
+
+
+
+
+

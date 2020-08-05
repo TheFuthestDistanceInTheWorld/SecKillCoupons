@@ -1,0 +1,70 @@
+#nacos配置
+server:
+  port: 7401
+
+
+spring:
+  application:
+    name: EmailSender #不要使用下划线
+  mail:
+    password: jvlozgtuberndibj
+    default-encoding: UTF-8
+    host: smtp.qq.com
+    username: 2546008409@qq.com
+    properties:
+      main:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /seckill
+    connection-timeout: 15000
+    publisher-confirms: true
+    publisher-returns: true
+    listener:
+      simple: 
+        #acknowledge-mode: manual   #manual  以为手动的   也就是开启手动确认机制
+        concurrency: 1
+        max-concurrency: 10
+        prefetch: 1      #prefetch译为  预读取    也就是消费者一次性最多消费两个
+        default-requeue-rejected: false    #不太理解这个参数的意思   从翻译来看应该是   被拒绝的信息是否默认回到队列中   死信队列一定是要关闭重回队列的
+        retry:
+          enabled: true     #开启重试次数
+          max-attempts: 3   #重试最大次数
+          initial-interval: 500 # 消息多次消费的间隔1秒
+    template:
+      mandatory: true    #强制的
+  cloud: 
+    nacos:
+      discovery:
+        server-addr: localhost:8848 
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+        group: DEFAULT_GROUP
+    sentinel: 
+      transport:
+        #配置sentinel dashboard地址
+        dashboard: localhost:8080
+        #默认8719端口，假如被占用会自动从8719开始依次+1扫描，直到找到未被占用的端口
+        port: 8719
+
+# ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+
+
+feign:
+  sentinel:
+    enabled: true
+
+
+
+
+
+
