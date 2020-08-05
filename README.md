@@ -3,18 +3,24 @@
 
 
 
+
 springcloud-addcoupon7501（添加优惠券服务）
 
 1.7501是设置的端口号(以下服务都是这样)
+
 2.\springcloud-addcoupon7501\src\main\java\com\demo\consumer\AddCouponCounsumer.java  
 文件有该服务的关键代码，配有部分注释
 
 
 
+
+
 springcloud-emailsender7401（邮箱发送服务）
 
-1.\springcloud-emailsender7401\src\main\java\com\demo\consumer\EmailSenderConsumer.java 
+1.\springcloud-emailsender7401\src\main\java\com\demo\consumer\EmailSenderConsumer.java  
 文件有该服务的关键代码，
+
+
 
 
 
@@ -28,6 +34,8 @@ jwt的认证是使用的aop的方式  在方法上添加注解即可验证jwt的
 
 
 
+
+
 springcloud-seckill7301 （秒杀接口）
 
 1.\springcloud-seckill7301\src\main\java\com\demo\controller\SecKillController.java  
@@ -35,9 +43,11 @@ springcloud-seckill7301 （秒杀接口）
 
 
 
+
+
 springcloud-snowflake11001（基于雪花算法的唯一ID生成服务）
 
-1. \src\main\java\com\demo\snowflake  该文件下是雪花算法的主要逻辑，代码相较于网络上的方案稍作更改
+1.\src\main\java\com\demo\snowflake  该文件下是雪花算法的主要逻辑，代码相较于网络上的方案稍作更改
 
 
 
